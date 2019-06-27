@@ -1,0 +1,8 @@
+{
+  "name": "domain-dispatcher",
+  "version": "0.0.1",
+  "description": "Serverless plugins required for redirection lambda",
+  "devDependencies": {
+    "serverless-domain-manager": "^3.2.6"
+  }
+}

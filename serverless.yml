@@ -1,0 +1,35 @@
+service: redirect
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: ${opt:region}
+  timeout: 30
+  stage: ${opt:stage}
+
+package:
+  individually: true
+
+functions:
+  redirection:
+    handler: app.handler
+    name: redirection
+    events:
+      - http: ANY /
+      - http: 'ANY {proxy+}'
+    package:
+      exclude:
+        - ./**
+      include:
+        - app.js
+
+custom:
+  customDomain:
+    domainName: ${opt:domain}
+    certificateName: ${opt:domain}
+    createRoute53Record: true
+    basePath: ''
+    stage: ${self:provider.stage}
+
+plugins:
+  - serverless-domain-manager
